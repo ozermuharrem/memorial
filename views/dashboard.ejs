@@ -1,0 +1,210 @@
+<%- include('partials/_header'); %>
+
+<%- include('partials/_navigation'); %>
+      <div class="about-bg">
+         <div class="container">
+            <div class="row">
+               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <div class="abouttitle">
+                     <h2>DASHBOARD</h2>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Library -->
+      <div class="Library">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage">
+                     <div id="countdown"></div>
+                     <% if(flashMesaj){%>
+                        <% if(flashMesaj.updateSuccessful){ %>
+                          <div class="alert alert-success"> <%= flashMesaj.updateSuccessful %></div>  
+                        <% }else if(flashMesaj.updateFailed){%>
+                          <div class="alert alert-danger"> <%= flashMesaj.updateFailed %></div>  
+                        <%}%>
+                      <%}%>
+                      <% if(flashMesaj){%>
+                        <% if(flashMesaj.createSuccessful){ %>
+                          <div class="alert alert-success"> <%= flashMesaj.createSuccessful %></div>  
+                        <% }else if(flashMesaj.createFailed){%>
+                          <div class="alert alert-danger"> <%= flashMesaj.createFailed %></div>  
+                        <%}%>
+                      <%}%>
+                           <!--accordion menu-->
+                      <div class="container mb-1">
+                        <div class="accordion" id="accordionExample">
+                           <div class="card">
+                             <div class="card-header" id="headingOne">
+                               <h2 class="mb-0">
+                                 <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                   Create New Book
+                                 </button>
+                               </h2>
+                             </div>
+                             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                              <div class="card-body">
+                                <form action="/createBook" method="POST">
+                                 <div class="form-group">
+                                    <label for="title">Titile</label>
+                                    <input type="text" name="title" class="form-control" id="title">
+                                  </div>
+                                  <div class="form-group">
+                                    <label style="padding-left: 150px;" for="description">Description</label><small class="float-right"> Charecter length <span id="charCount">0</span>/2000</small> 
+                                    <textarea maxlength="2000" class="form-control"  name="description" id="Description"> </textarea>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="author">Author</label>
+                                    <input type="text" name="author" class="form-control" id="author">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="year">Year</label>
+                                    <input type="number" name="year" class="form-control" id="year">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="cover">Cover</label>
+                                    <input type="text" name="cover" class="form-control" id="cover" placeholder="please only url address">
+                                  </div>
+                     
+                                  <button type="submit" class="btn btn-primary">Submit</button>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                     <!--start-->
+                     <div class="container">
+                        <table class="table table-hover table-striped h-100">
+                            <thead class="text-dark text-center">
+                                <tr>
+                                <th scope="col">Book ID</th>
+                                <th scope="col">Title</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Author</th>
+                                <th scope="col">Year</th>
+                                <th scope="col">Cover</th>
+                                <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody >
+                                <% for(let z in jsonData.books){ %>
+                                <tr class="text-center">    
+                                    <td><%= jsonData.books[z]._id %></td> 
+                                    <td><%= jsonData.books[z].title %></td>
+                                    <td>
+                                       <button type="button" style="font-size: 10px;" class="btn btn-outline-secondary btn-sm"
+                                          data-toggle="tooltip" data-placement="top" 
+                                          title="<%= jsonData.books[z].description %>">
+                                          <%if(jsonData.books[z].description.length > 150){ %> 
+                                             <%= jsonData.books[z].description.substring(0, 10)+ "..." %>
+                                           <%}else{%> 
+                                             <% jsonData.books[z].description %>
+                                           <%}%>
+                                       </button>
+                                    </td>
+                                    <td><%= jsonData.books[z].author %></td>
+                                    <td><%= jsonData.books[z].year %></td>
+                                    <td><img src="<%= jsonData.books[z].cover %>" style="width: 25px; height: 50px;" alt=""></td>
+
+                                    <td class="">
+                                        <div class="row">
+                                          <div class="dropdown">
+                                            <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa-solid fa-ellipsis"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>                                  
+                                                  <a class="dropdown-item" href="/delete/<%= jsonData.books[z]._id %>" onclick="return confirm('Emin Misin ?')">
+                                                    <i class="fa-solid fa-trash-can"></i> Delete
+                                                  </a>
+                                                </li>
+                                                <li>
+                                                  <button class="dropdown-item" data-toggle="modal" data-target="#updateBook<%= jsonData.books[z]._id %>" >
+                                                    <i class="fa-solid fa-pen"></i> 
+                                                    Update
+                                                  </button>
+                                                </li>
+                                              </ul>
+                                          </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                
+                                <!-- Modal -->
+                             <!-- Modal -->
+                              <div class="modal fade" id="updateBook<%= jsonData.books[z]._id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                 <div class="modal-dialog">
+                                 <div class="modal-content">
+                                    <div class="modal-header">
+                                       <h5 class="modal-title" id="exampleModalLabel">Update Book</h5>
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                       <span aria-hidden="true">&times;</span>
+                                       </button>
+                                    </div>
+                                    <div class="modal-body">
+                                       <form action="/update/<%= jsonData.books[z]._id %>" method="POST">
+                                          <div class="col-lg-11">
+                                             <label for="title" class="form-label">Title</label>
+                                             <input
+                                               type="text"
+                                               name="title"
+                                               class="form-control"
+                                               value="<%= jsonData.books[z].title %>"
+                                             />
+                                           </div>
+                                           <div class="col-lg-11">
+                                             <label for="description" class="form-label">Description</label>
+                                             <input type="text" name="description" id="description" class="form-control" value="<%= jsonData.books[z].description%>"/>
+                                           </div>
+                                           <div class="col-lg-11">
+                                             <label for="author" class="form-label">Author</label>
+                                             <input type="text" name="author" id="author" class="form-control" value="<%= jsonData.books[z].author%>"/>
+                                           </div>
+                                           <div class="col-lg-11">
+                                             <label for="year" class="form-label">Year</label>
+                                             <input type="number" name="year" id="year" class="form-control" value="<%= jsonData.books[z].year%>"/>
+                                           </div>
+                                           <div class="col-lg-11">
+                                             <label for="cover" class="form-label">Year</label>
+                                             <input type="text" name="cover" id="cover" class="form-control" value="<%= jsonData.books[z].cover%>"/>
+                                           </div>
+                                           <div class="modal-footer">
+                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                             <button type="submit" class="btn btn-primary">Save changes</button>
+                                          </div>
+                                       </form>
+                                    </div>
+                                  
+                                 </div>
+                                 </div>
+                              </div>
+                                <% } %>
+                
+                            </tbody>
+                          </table>
+
+
+                     <!--end-->
+
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end Library -->
+
+      <script>
+        const textarea = document.getElementById("Description");
+        const charCount = document.getElementById("charCount");
+
+        textarea.addEventListener("input", () => {
+          const count = textarea.value.length;
+          charCount.innerText = count;
+        });
+
+      </script>
+      <%- include('partials/_footer'); %>
+

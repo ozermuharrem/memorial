@@ -1,0 +1,115 @@
+<%- include('partials/_header'); %>
+
+<%- include('partials/_navigation'); %>
+      <section class="slider_section">
+         <div id="myCarousel" class="carousel slide banner-main" data-ride="carousel">
+            <div class="carousel-inner">
+               <div class="carousel-item active">
+                  <img class="first-slide" src="images/banner.jpg" alt="First slide">
+                  <div class="container">
+                     <div class="carousel-caption relative">
+                        <h1>The Best Libraries That<br> Every Book Lover Must<br> Visit!</h1>
+                        <p>adipiscing elit, sed do eiusmod tempor incididunt ut<br> labore et dolore magna aliqua. Ut enim ad minim<br> veniam, quis nostrud exercitation </p>
+                        <div class="button_section"> <a class="main_bt" href="#">Read More</a>  </div>
+                        <ul class="locat_icon">
+                           <li> <a href="#"><img src="icon/facebook.png"></a></li>
+                           <li> <a href="#"><img src="icon/Twitter.png"></a></li>
+                           <li> <a href="#"><img src="icon/linkedin.png"></a></li>
+                           <li> <a href="#"><img src="icon/instagram.png"></a></li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+               <div class="carousel-item">
+                  <img class="second-slide" src="images/banner.jpg" alt="Second slide">
+                  <div class="container">
+                     <div class="carousel-caption relative">
+                        <h1>The Best Libraries That<br> Every Book Lover Must<br> Visit!</h1>
+                        <p>adipiscing elit, sed do eiusmod tempor incididunt ut<br> labore et dolore magna aliqua. Ut enim ad minim<br> veniam, quis nostrud exercitation </p>
+                        <div class="button_section"> <a class="main_bt" href="#">Read More</a>  </div>
+                        <ul class="locat_icon">
+                           <li> <a href="#"><img src="icon/facebook.png"></a></li>
+                           <li> <a href="#"><img src="icon/Twitter.png"></a></li>
+                           <li> <a href="#"><img src="icon/linkedin.png"></a></li>
+                           <li> <a href="#"><img src="icon/instagram.png"></a></li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+               <div class="carousel-item">
+                  <img class="third-slide" src="<images/banner.jpg>" alt="Third slide">
+                  <div class="container">
+                     <div class="carousel-caption relative">
+                        <h1>The Best Libraries That<br> Every Book Lover Must<br> Visit!</h1>
+                        <p>adipiscing elit, sed do eiusmod tempor incididunt ut<br> labore et dolore magna aliqua. Ut enim ad minim<br> veniam, quis nostrud exercitation </p>
+                        <div class="button_section"> <a class="main_bt" href="#">Read More</a>  </div>
+                        <ul class="locat_icon">
+                           <li> <a href="#"><img src="icon/facebook.png"></a></li>
+                           <li> <a href="#"><img src="icon/Twitter.png"></a></li>
+                           <li> <a href="#"><img src="icon/linkedin.png"></a></li>
+                           <li> <a href="#"><img src="icon/instagram.png"></a></li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+            </a>
+         </div>
+      </section>
+
+      <!-- Library -->
+      <div class="Library">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-10 offset-md-1">
+                  <div class="titlepage">
+                     <h2>Our <strong class="black">Library </strong></h2>
+                     <span>adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris</span> 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="bg">
+            <div class="container">
+               <div class="row">
+                  <% if(jsonData.books != '\0'){%>
+                     <% for(let i in jsonData.books) { %>
+                        <!-- <figure class="d-blog"><img src="<%= jsonData.books[i].cover %>" alt="#"/></figure> -->
+                        <div class="col-md-3 offset-md-1">
+                           <div class="Library-box">
+                       
+                                 <div class="card" style="width: 18rem;">
+                                    <img style="width: 280px; height: 420px;" src="<%= jsonData.books[i].cover %>" class="card-img-top" alt="<%= jsonData.books[i].title %>">
+                                    <div class="card-body">
+                                      <h5 class="card-title"><%= jsonData.books[i].title %></h5>
+                                      <p class="card-text"><%if(jsonData.books[i].description.length > 150){ %> 
+                                         <%= jsonData.books[i].description.substring(0, 150)+ "..." %>
+                                       <%}else{%> 
+                                         <% jsonData.books[i].description %>
+                                       <%}%></p>
+                                       <div class="read-more">
+                                          <a href="/singleBook/<%= jsonData.books[i]._id %>">Read More</a>
+                                       </div>
+                                    </div>
+                                  </div>
+                          
+                                 </div>
+                              </div>
+                        <%}%> 
+                     <%}else{%>
+                        <h5>Loading...</h5>
+                  <%}%>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end Library -->
+      
+      <%- include('partials/_footer'); %>
