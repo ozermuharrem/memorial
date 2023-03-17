@@ -44,6 +44,10 @@ exports.loginUser = async (req,res) => {
                         req.session.userID = user._id;
                 })
             }
+	    else{
+		    req.flash('loginFail','No registered users');
+		 return res.status(400).redirect('/login');
+		}	    
        
           request.post({
             url : apiUrl + "/user/login",

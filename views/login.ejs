@@ -13,6 +13,13 @@
          </div>
       </div>
       <!-- Contact -->
+	 <% if(flashMesaj){%>
+           <% if(flashMesaj.loginSuccessful){ %>
+               <div class="alert alert-success"> <%= flashMesaj.loginSuccessful %></div>  
+            <% }else if(flashMesaj.loginFaile){%>
+               <div class="alert alert-danger"> <%= flashMesaj.loginFaile %></div>  
+             <%}%>
+         <%}%>
       <div class="Contact">
          <div class="container">
             <div class="row">

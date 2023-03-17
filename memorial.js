@@ -11,7 +11,7 @@ const usersRoutes = require('./routes/usersRoute');
 const app = express();
 
 // Mongodb connect 
-mongoose.connect('mongodb://localhost:27017/memorial-db')
+mongoose.connect('mongodb+srv://mozer:XjO2Wo3ACuVFzsMb@cluster0.0xfbdzw.mongodb.net/memorial-db?retryWrites=true&w=majority')
 .then(() => {
     console.log("DB Connected Successfully")
 })
@@ -24,13 +24,13 @@ app.use(
         secret: 'my_keyboard_cat',
         resave: false,
         saveUninitialized: true,
-        store: MongoStore.create({mongoUrl: 'mongodb://localhost:27017/memorial-db'})
+        store: MongoStore.create({mongoUrl: 'mongodb+srv://mozer:XjO2Wo3ACuVFzsMb@cluster0.0xfbdzw.mongodb.net/memorial-db?retryWrites=true&w=majority'})
     })
 );
 
 //Global Variable
 
-global.apiUrl = "http://localhost:3000";
+global.apiUrl = "https://api.bookstore.ozermuharrem.com";
 global.coin;
 global.userIN = null;
 
