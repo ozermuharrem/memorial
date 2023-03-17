@@ -11,7 +11,7 @@ const usersRoutes = require('./routes/usersRoute');
 const app = express();
 
 // Mongodb connect 
-mongoose.connect('mongodb+srv://mozer:XjO2Wo3ACuVFzsMb@cluster0.0xfbdzw.mongodb.net/memorial-db?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://mozer:************@cluster0.0xfbdzw.mongodb.net/memorial-db?retryWrites=true&w=majority')
 .then(() => {
     console.log("DB Connected Successfully")
 })
@@ -24,7 +24,7 @@ app.use(
         secret: 'my_keyboard_cat',
         resave: false,
         saveUninitialized: true,
-        store: MongoStore.create({mongoUrl: 'mongodb+srv://mozer:XjO2Wo3ACuVFzsMb@cluster0.0xfbdzw.mongodb.net/memorial-db?retryWrites=true&w=majority'})
+        store: MongoStore.create({mongoUrl: 'mongodb+srv://mozer:*********@cluster0.0xfbdzw.mongodb.net/memorial-db?retryWrites=true&w=majority'})
     })
 );
 
